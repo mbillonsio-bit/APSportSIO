@@ -30,14 +30,17 @@
         {
             this.cbxCritere = new System.Windows.Forms.ComboBox();
             this.txtRecherche = new System.Windows.Forms.TextBox();
-            this.btnRecherche = new System.Windows.Forms.Button();
             this.lstvResultat = new System.Windows.Forms.ListView();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabSport = new System.Windows.Forms.TabControl();
             this.tabSportifs = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabControl1.SuspendLayout();
+            this.tabModifs = new System.Windows.Forms.TabPage();
+            this.lstvModifs = new System.Windows.Forms.ListView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cbxModifs = new System.Windows.Forms.ComboBox();
+            this.tabSport.SuspendLayout();
             this.tabSportifs.SuspendLayout();
+            this.tabModifs.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbxCritere
@@ -57,36 +60,27 @@
             "Ville",
             "Niveau d\'expérience",
             "Nom du sport"});
-            this.cbxCritere.Location = new System.Drawing.Point(7, 60);
+            this.cbxCritere.Location = new System.Drawing.Point(5, 72);
             this.cbxCritere.Name = "cbxCritere";
             this.cbxCritere.Size = new System.Drawing.Size(178, 31);
             this.cbxCritere.TabIndex = 0;
             this.cbxCritere.Text = "Identifiant";
+            this.cbxCritere.TextChanged += new System.EventHandler(this.cbxCritere_TextChanged);
             // 
             // txtRecherche
             // 
-            this.txtRecherche.Location = new System.Drawing.Point(191, 62);
+            this.txtRecherche.Location = new System.Drawing.Point(189, 74);
             this.txtRecherche.Name = "txtRecherche";
-            this.txtRecherche.Size = new System.Drawing.Size(768, 29);
+            this.txtRecherche.Size = new System.Drawing.Size(954, 29);
             this.txtRecherche.TabIndex = 1;
-            this.txtRecherche.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRecherche_KeyPress);
-            // 
-            // btnRecherche
-            // 
-            this.btnRecherche.Location = new System.Drawing.Point(965, 6);
-            this.btnRecherche.Name = "btnRecherche";
-            this.btnRecherche.Size = new System.Drawing.Size(180, 140);
-            this.btnRecherche.TabIndex = 2;
-            this.btnRecherche.Text = "Recherche";
-            this.btnRecherche.UseVisualStyleBackColor = true;
-            this.btnRecherche.Click += new System.EventHandler(this.btnRecherche_Click);
+            this.txtRecherche.TextChanged += new System.EventHandler(this.txtRecherche_TextChanged);
             // 
             // lstvResultat
             // 
             this.lstvResultat.HideSelection = false;
-            this.lstvResultat.Location = new System.Drawing.Point(7, 152);
+            this.lstvResultat.Location = new System.Drawing.Point(5, 151);
             this.lstvResultat.Name = "lstvResultat";
-            this.lstvResultat.Size = new System.Drawing.Size(1140, 522);
+            this.lstvResultat.Size = new System.Drawing.Size(1138, 524);
             this.lstvResultat.TabIndex = 3;
             this.lstvResultat.UseCompatibleStateImageBehavior = false;
             // 
@@ -98,15 +92,15 @@
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 5;
             // 
-            // tabControl1
+            // tabSport
             // 
-            this.tabControl1.Controls.Add(this.tabSportifs);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(1, 2);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1161, 706);
-            this.tabControl1.TabIndex = 6;
+            this.tabSport.Controls.Add(this.tabSportifs);
+            this.tabSport.Controls.Add(this.tabModifs);
+            this.tabSport.Location = new System.Drawing.Point(1, 1);
+            this.tabSport.Name = "tabSport";
+            this.tabSport.SelectedIndex = 0;
+            this.tabSport.Size = new System.Drawing.Size(1164, 709);
+            this.tabSport.TabIndex = 6;
             // 
             // tabSportifs
             // 
@@ -115,39 +109,85 @@
             this.tabSportifs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabSportifs.Controls.Add(this.lstvResultat);
             this.tabSportifs.Controls.Add(this.cbxCritere);
-            this.tabSportifs.Controls.Add(this.btnRecherche);
             this.tabSportifs.Controls.Add(this.txtRecherche);
-            this.tabSportifs.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.tabSportifs.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.tabSportifs.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabSportifs.Location = new System.Drawing.Point(4, 22);
             this.tabSportifs.Name = "tabSportifs";
             this.tabSportifs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSportifs.Size = new System.Drawing.Size(1153, 680);
+            this.tabSportifs.Size = new System.Drawing.Size(1156, 683);
             this.tabSportifs.TabIndex = 0;
             this.tabSportifs.Text = "Affichages des sportifs";
             // 
-            // tabPage2
+            // tabModifs
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1153, 680);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabModifs.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.tabModifs.Controls.Add(this.lstvModifs);
+            this.tabModifs.Controls.Add(this.textBox1);
+            this.tabModifs.Controls.Add(this.cbxModifs);
+            this.tabModifs.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabModifs.Location = new System.Drawing.Point(4, 22);
+            this.tabModifs.Name = "tabModifs";
+            this.tabModifs.Padding = new System.Windows.Forms.Padding(3);
+            this.tabModifs.Size = new System.Drawing.Size(1156, 683);
+            this.tabModifs.TabIndex = 1;
+            this.tabModifs.Text = "Modifications";
+            // 
+            // lstvModifs
+            // 
+            this.lstvModifs.HideSelection = false;
+            this.lstvModifs.Location = new System.Drawing.Point(6, 152);
+            this.lstvModifs.Name = "lstvModifs";
+            this.lstvModifs.Size = new System.Drawing.Size(1138, 524);
+            this.lstvModifs.TabIndex = 4;
+            this.lstvModifs.UseCompatibleStateImageBehavior = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(190, 75);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(954, 29);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // cbxModifs
+            // 
+            this.cbxModifs.AutoCompleteCustomSource.AddRange(new string[] {
+            "Ville,",
+            "Niveau d\'expérience,",
+            "Nom du sport"});
+            this.cbxModifs.FormattingEnabled = true;
+            this.cbxModifs.Items.AddRange(new object[] {
+            "Identifiant",
+            "Nom",
+            "Prenom",
+            "Date de naissance",
+            "Rue",
+            "Code postal",
+            "Ville",
+            "Niveau d\'expérience",
+            "Nom du sport"});
+            this.cbxModifs.Location = new System.Drawing.Point(6, 73);
+            this.cbxModifs.Name = "cbxModifs";
+            this.cbxModifs.Size = new System.Drawing.Size(178, 31);
+            this.cbxModifs.TabIndex = 1;
+            this.cbxModifs.Text = "Identifiant";
+            this.cbxModifs.TextChanged += new System.EventHandler(this.cbxModifs_TextChanged);
             // 
             // frmSportSIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1165, 711);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabSport);
             this.Controls.Add(this.label2);
             this.Name = "frmSportSIO";
             this.Text = "Sport Sio";
-            this.tabControl1.ResumeLayout(false);
+            this.tabSport.ResumeLayout(false);
             this.tabSportifs.ResumeLayout(false);
             this.tabSportifs.PerformLayout();
+            this.tabModifs.ResumeLayout(false);
+            this.tabModifs.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,13 +197,15 @@
 
         private System.Windows.Forms.ComboBox cbxCritere;
         private System.Windows.Forms.TextBox txtRecherche;
-        private System.Windows.Forms.Button btnRecherche;
         private System.Windows.Forms.ListView lstvResultat;
         private System.Windows.Forms.Label lblTest;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabSport;
         private System.Windows.Forms.TabPage tabSportifs;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabModifs;
+        private System.Windows.Forms.ListView lstvModifs;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox cbxModifs;
     }
 }
 
