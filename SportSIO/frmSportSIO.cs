@@ -56,63 +56,11 @@ namespace SportSIO
             cnx.Close();
         }
         public void SearchListView()
-        {
-            string searchValue;
-            string searchCriteria;
-            
+        {    
             lstvResultat.Columns.Clear(); // Clear previously added columns
             lstvResultat.Items.Clear(); // Clear previously populated items
             lstvResultat.View = View.Details; // Set View property
-            string chConnexion = ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString;
-            MySqlConnection cnx = new MySqlConnection(chConnexion);
-            cnx.Open();
-            switch (cbxCritere.SelectedIndex)
-            {
-                case 0:
-                    searchValue = $"{txtRecherche.Text}";
-                    searchCriteria = "id";
-                    break;
-                case 1:
-                    searchValue = $"'%{txtRecherche.Text}%'";
-                    searchCriteria = "nom";
-                    break;
-                case 2:
-                    searchValue = $"'%{txtRecherche.Text}%'";
-                    searchCriteria = "prenom";
-                    break;
-                case 3:
-                    searchValue = $"'%{txtRecherche.Text}%'";
-                    searchCriteria = "dateNais";
-                    break;
-                case 4:
-                    searchValue = $"'%{txtRecherche.Text}%'";
-                    searchCriteria = "rue";
-                    break;
-                case 5:
-                    searchValue = $"'%{txtRecherche.Text}%'";
-                    searchCriteria = "codePostal";
-                    break;
-                case 6:
-                    searchValue = $"'%{txtRecherche.Text}%'";
-                    searchCriteria = "ville";
-                    break;
-                case 7:
-                    searchValue = $"{txtRecherche.Text}";
-                    searchCriteria = "niveauExperience";
-                    break;
-                case 8:
-                    searchValue = $"'%{txtRecherche.Text}%'";
-                    searchCriteria = "nomSport";
-                    break;
-                default:
-                    searchValue = $"{txtRecherche.Text}";
-                    searchCriteria = "id";
-                    break;
-            }
-            string Search = $"SELECT * FROM Sportif WHERE {searchCriteria} like {searchValue}";
-            MySqlCommand cmd = new MySqlCommand(Search, cnx);
-            cmd.Parameters.AddWithValue("@value", txtRecherche.Text);
-            MySqlDataReader rd = cmd.ExecuteReader();
+            MySqlDataReader rd = Sportif.GetSportif(txtRecherche.Text, cbxCritere.SelectedIndex);
 
             lstvResultat.Columns.Add("Id");
             lstvResultat.Columns.Add("Nom");
@@ -137,7 +85,7 @@ namespace SportSIO
                 lv.SubItems.Add(rd[8].ToString());
                 lstvResultat.Items.Add(lv);
             }
-            cnx.Close();
+            //cnx.Close();
         }
         public frmSportSIO()
         {

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,6 +58,62 @@ namespace BiblioSportif
                 default:
                     return "";
             }
+        }
+
+        public static MySqlDataReader GetSportif(string valeur, int critere)
+        {
+            string searchCriteria;
+            string searchValue;
+            switch (critere)
+            {
+                case 0:
+                    searchValue = $"{valeur}";
+                    searchCriteria = "id";
+                    break;
+                case 1:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "nom";
+                    break;
+                case 2:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "prenom";
+                    break;
+                case 3:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "dateNais";
+                    break;
+                case 4:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "rue";
+                    break;
+                case 5:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "codePostal";
+                    break;
+                case 6:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "ville";
+                    break;
+                case 7:
+                    searchValue = $"{valeur}";
+                    searchCriteria = "niveauExperience";
+                    break;
+                case 8:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "nomSport";
+                    break;
+                default:
+                    searchValue = $"{valeur}";
+                    searchCriteria = "id";
+                    break;
+            }
+            string chConnexion = ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString;
+            MySqlConnection cnx = new MySqlConnection(chConnexion);
+            cnx.Open();
+
+            string Search = $"SELECT * FROM Sportif WHERE {searchCriteria} LIKE {searchValue}";
+            MySqlCommand cmd = new MySqlCommand(Search, cnx);
+            return cmd.ExecuteReader();
         }
     }
 }
