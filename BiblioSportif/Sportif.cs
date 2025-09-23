@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +20,6 @@ namespace BiblioSportif
         private string prenom;
         private string rue;
         private string ville;
-
         public Sportif(string codePostal, string dateNais, int id, int niveauExperience, string nom, string nomSport, string prenom, string rue, string ville)
         {
             this.codePostal = codePostal;
@@ -107,13 +107,13 @@ namespace BiblioSportif
                     searchCriteria = "id";
                     break;
             }
-            string chConnexion = ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString;
-            MySqlConnection cnx = new MySqlConnection(chConnexion);
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
 
             string Search = $"SELECT * FROM Sportif WHERE {searchCriteria} LIKE {searchValue}";
             MySqlCommand cmd = new MySqlCommand(Search, cnx);
             return cmd.ExecuteReader();
         }
+
     }
 }

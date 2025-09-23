@@ -1,5 +1,6 @@
 ﻿using BiblioSportif;
 using MySql.Data.MySqlClient;
+using Mysqlx.Cursor;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,11 +21,10 @@ namespace SportSIO
     {
         public void StartListView()
         {
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString); 
             lstvResultat.Columns.Clear(); // Clear previously added columns
             lstvResultat.Items.Clear(); // Clear previously populated items
             lstvResultat.View = View.Details; // Set View property
-            string chConnexion = ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString;
-            MySqlConnection cnx = new MySqlConnection(chConnexion);
             cnx.Open();
             string Search = "SELECT * FROM Sportif";
             MySqlCommand cmd = new MySqlCommand(Search, cnx);
@@ -57,6 +57,7 @@ namespace SportSIO
         }
         public void SearchListView()
         {    
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             lstvResultat.Columns.Clear(); // Clear previously added columns
             lstvResultat.Items.Clear(); // Clear previously populated items
             lstvResultat.View = View.Details; // Set View property
@@ -85,7 +86,7 @@ namespace SportSIO
                 lv.SubItems.Add(rd[8].ToString());
                 lstvResultat.Items.Add(lv);
             }
-            //cnx.Close();
+            cnx.Close();
         }
         public frmSportSIO()
         {
