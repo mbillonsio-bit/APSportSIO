@@ -104,10 +104,19 @@
     <Compile Include="frmSportSIO.Designer.cs">
       <DependentUpon>frmSportSIO.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmModifs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModifs.Designer.cs">
+      <DependentUpon>frmModifs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmSportSIO.resx">
       <DependentUpon>frmSportSIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmModifs.resx">
+      <DependentUpon>frmModifs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
