@@ -57,6 +57,7 @@ namespace SportSIO
                 lv.SubItems.Add(rd[8].ToString());
                 lstv.Items.Add(lv);
             }
+            lstv.FullRowSelect = true;
         }
         public void StartListView(System.Windows.Forms.ListView lstv)
         {
