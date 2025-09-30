@@ -344,7 +344,6 @@
             this.Controls.Add(this.gbxModif);
             this.Name = "frmModifs";
             this.Text = "Modifier";
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.frmModifs_MouseClick);
             this.gbxModif.ResumeLayout(false);
             this.gbxModif.PerformLayout();
             this.ResumeLayout(false);
