@@ -12,7 +12,7 @@ namespace BiblioSportif
     public class Sportif
     {
         private string codePostal;
-        private string dateNais;
+        private DateTime dateNais;
         private int id;
         private int niveauExperience;
         private string nom;
@@ -20,7 +20,7 @@ namespace BiblioSportif
         private string prenom;
         private string rue;
         private string ville;
-        public Sportif(string codePostal, string dateNais, int id, int niveauExperience, string nom, string nomSport, string prenom, string rue, string ville)
+        public Sportif(int id, string nom, string prenom, DateTime dateNais, string rue, string codePostal, string ville, int niveauExperience, string nomSport)
         {
             this.codePostal = codePostal;
             this.dateNais = dateNais;
@@ -34,7 +34,7 @@ namespace BiblioSportif
         }
 
         public string CodePostal { get => codePostal; set => codePostal = value; }
-        public string DateNais { get => dateNais; set => dateNais = value; }
+        public DateTime DateNais { get => dateNais; set => dateNais = value; }
         public int Id { get => id; set => id = value; }
         public int NiveauExperience { get => niveauExperience; set => niveauExperience = value; }
         public string Nom { get => nom; set => nom = value; }
