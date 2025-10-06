@@ -176,5 +176,47 @@ namespace SportSIO
         {
             StartListView(lstvResultat);
         }
+
+        private void lstvResultat_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            string order = "id";
+            switch (lstvResultat.Columns[e.Column].Index)
+            {
+                case 0:
+                    order = "id";
+                    break;
+                case 1:
+                    order = "nom";
+                    break;
+                case 2:
+                    order = "prenom";
+                    break;
+                case 3:
+                    order = "dateNais";
+                    break;
+                case 4:
+                    order = "rue";
+                    break;
+                case 5:
+                    order = "codePostal";
+                    break;
+                case 6:
+                    order = "ville";
+                    break;
+                case 7:
+                    order = "niveauExperience";
+                    break;
+                case 8:
+                    order = "nomSport";
+                    break;
+            }
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string Delete = $"SELECT * FROM Sportif ORDER BY {order} asc";
+            MySqlCommand cmd = new MySqlCommand(Delete, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            columnsRead(lstvResultat, rd);
+            cnx.Close();
+        }
     }
 }

@@ -59,6 +59,8 @@ namespace SportSIO
 
         private void btnRetour_Click(object sender, EventArgs e)
         {
+            frmSportSIO frmSportSIO = new frmSportSIO();
+            frmSportSIO.Show();
             this.Close();
         }
 

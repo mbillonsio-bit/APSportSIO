@@ -56,6 +56,7 @@
             this.lstvResultat.Size = new System.Drawing.Size(1144, 566);
             this.lstvResultat.TabIndex = 8;
             this.lstvResultat.UseCompatibleStateImageBehavior = false;
+            this.lstvResultat.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstvResultat_ColumnClick);
             // 
             // cbxCritere
             // 
