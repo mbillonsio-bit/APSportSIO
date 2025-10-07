@@ -15,10 +15,28 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace SportSIO
-{
-    
+{    
     public partial class frmSportSIO : Form
     {
+        public static int Modif;
+
+        public static List<Sportif> findSportifs()
+        {
+            List<Sportif> lesSportifs = new List<Sportif>();
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string Search = "SELECT * FROM Sportif";
+            MySqlCommand cmd = new MySqlCommand(Search, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                Sportif sportif = new Sportif((int)rd[0], rd[1].ToString(), rd[2].ToString(), (DateTime)rd[3], rd[4].ToString(),
+                    rd[5].ToString(), rd[6].ToString(), (int)rd[7], rd[8].ToString());
+                lesSportifs.Add(sportif);
+            }
+            cnx.Close();
+            return lesSportifs;
+        }
         public void columnsRead(System.Windows.Forms.ListView lstv, MySqlDataReader rd)
         {
             lstv.Columns.Clear();
@@ -81,9 +99,9 @@ namespace SportSIO
         }
         public frmSportSIO()
         {
-
             InitializeComponent();
             StartListView(lstvResultat);
+            lblUser.Text = "Utilisateur : " + frmLogin.cpte.Username;
         }
 
         private void cbxCritere_TextChanged(object sender, EventArgs e)
@@ -112,8 +130,93 @@ namespace SportSIO
 
         private void btnModif_Click(object sender, EventArgs e)
         {
+            Modif = 0;
+            if (lstvResultat.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Veuillez sélectionner un sportif à modifier");
+                return;
+            }
+            else 
+            {
+                frmModifs modif = new frmModifs(lstvResultat);
+                modif.Show();
+                this.Hide();
+            }
+        }
+
+        private void btnAjouter_Click(object sender, EventArgs e)
+        {
+            Modif = 1;
             frmModifs modif = new frmModifs();
             modif.Show();
+            this.Hide();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string id = lstvResultat.SelectedItems[0].SubItems[0].Text;
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string Delete = $"DELETE FROM Sportif WHERE id={id}";
+            MySqlCommand cmd = new MySqlCommand(Delete, cnx);
+            cmd.ExecuteNonQuery();
+            cnx.Close();
+            StartListView(lstvResultat);
+        }
+
+        private void lblModifPass_Click(object sender, EventArgs e)
+        {
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.Show();
+            frmLogin.lblForgot_Click(sender, e);
+            frmLogin.txtUser.Text = frmLogin.cpte.Username;
+        }
+
+        private void frmSportSIO_VisibleChanged(object sender, EventArgs e)
+        {
+            StartListView(lstvResultat);
+        }
+
+        private void lstvResultat_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            string order = "id";
+            switch (lstvResultat.Columns[e.Column].Index)
+            {
+                case 0:
+                    order = "id";
+                    break;
+                case 1:
+                    order = "nom";
+                    break;
+                case 2:
+                    order = "prenom";
+                    break;
+                case 3:
+                    order = "dateNais";
+                    break;
+                case 4:
+                    order = "rue";
+                    break;
+                case 5:
+                    order = "codePostal";
+                    break;
+                case 6:
+                    order = "ville";
+                    break;
+                case 7:
+                    order = "niveauExperience";
+                    break;
+                case 8:
+                    order = "nomSport";
+                    break;
+            }
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string Delete = $"SELECT * FROM Sportif ORDER BY {order} asc";
+            MySqlCommand cmd = new MySqlCommand(Delete, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            columnsRead(lstvResultat, rd);
+            cnx.Close();
         }
     }
 }

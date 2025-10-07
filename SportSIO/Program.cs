@@ -12,11 +12,12 @@ namespace SportSIO
         /// Point d'entrée principal de l'application.
         /// </summary>
         [STAThread]
+
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmSportSIO());
+            Application.Run(new frmLogin());
         }
     }
 }
