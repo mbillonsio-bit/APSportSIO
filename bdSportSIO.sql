@@ -14,6 +14,12 @@ CREATE TABLE IF NOT EXISTS Sportif (
     Primary key (id)
     ) Engine = InnoDB;
     
+CREATE TABLE IF NOT EXISTS Utilisateur (
+    username varchar(32),
+    password varchar(32),
+    Primary key (username)
+    ) Engine = InnoDB;
+    
 INSERT INTO Sportif (nom,prenom,dateNais,rue,codePostal,ville,niveauExperience,nomSport) VALUES
 ('Davolio', 'Jeanne', '2003-06-15', '5 rue de la poste', '63000','Clermont-Ferrand', 3, 'Tennis'),
 ('Dupont', 'Emma', '2006-11-22', '32 place de l''Hôtel de Ville', '63200','Riom', 3, 'Natation'),
@@ -26,4 +32,6 @@ INSERT INTO Sportif (nom,prenom,dateNais,rue,codePostal,ville,niveauExperience,n
 ('Petit', 'Antoine', '2005-02-12', '7 rue de la paix', '63000', 'Clermont-Ferrand', 4, 'Tennis'),
 ('Merle', 'Louis','2004-01-30','3 avenue de la république', '63000', 'Clermont-Ferrand',3, 'Judo'),
 ('Arquizan', 'Lucie', '2005-02-15','3 boulevard Berthelot', '63000', 'Clermont-Ferrand',1, 'Natation');
-SELECT * FROM Sportif where ville = Clermont-Ferrand;
+
+INSERT INTO Utilisateur VALUES ('Maxev3','123');
+SELECT * FROM Sportif 

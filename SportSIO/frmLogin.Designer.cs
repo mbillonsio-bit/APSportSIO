@@ -62,9 +62,9 @@
             this.lblForgot.AutoSize = true;
             this.lblForgot.Location = new System.Drawing.Point(122, 127);
             this.lblForgot.Name = "lblForgot";
-            this.lblForgot.Size = new System.Drawing.Size(111, 13);
+            this.lblForgot.Size = new System.Drawing.Size(108, 13);
             this.lblForgot.TabIndex = 2;
-            this.lblForgot.Text = "Mot de passe oublier?";
+            this.lblForgot.Text = "Mot de passe oublié?";
             this.lblForgot.Click += new System.EventHandler(this.lblForgot_Click);
             this.lblForgot.MouseHover += new System.EventHandler(this.lblForgot_MouseHover);
             // 
