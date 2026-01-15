@@ -81,7 +81,7 @@ namespace SportSIO
         {
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString); 
             cnx.Open();
-            string Search = "SELECT * FROM Sportif";
+            string Search = "SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport \nFROM Sportif S \nINNER JOIN Sport Sp ON S.idSport=Sp.id;";
             MySqlCommand cmd = new MySqlCommand(Search, cnx);
             MySqlDataReader rd = cmd.ExecuteReader();
             columnsRead(lstv, rd);
@@ -139,8 +139,9 @@ namespace SportSIO
             else 
             {
                 frmModifs modif = new frmModifs(lstvResultat);
-                modif.Show();
                 this.Hide();
+                modif.ShowDialog();
+                this.Show();
             }
         }
 
@@ -148,8 +149,9 @@ namespace SportSIO
         {
             Modif = 1;
             frmModifs modif = new frmModifs();
-            modif.Show();
             this.Hide();
+            modif.ShowDialog();
+            this.Show();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -157,7 +159,7 @@ namespace SportSIO
             string id = lstvResultat.SelectedItems[0].SubItems[0].Text;
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
-            string Delete = $"DELETE FROM Sportif WHERE id={id}";
+            string Delete = $"CALL DeleteSportif({id})";
             MySqlCommand cmd = new MySqlCommand(Delete, cnx);
             cmd.ExecuteNonQuery();
             cnx.Close();
@@ -207,12 +209,12 @@ namespace SportSIO
                     order = "niveauExperience";
                     break;
                 case 8:
-                    order = "nomSport";
+                    order = "idSport";
                     break;
             }
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
-            string Delete = $"SELECT * FROM Sportif ORDER BY {order} asc";
+            string Delete = $"SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport FROM Sportif S INNER JOIN Sport Sp ON S.idSport=Sp.id ORDER BY {order} asc";
             MySqlCommand cmd = new MySqlCommand(Delete, cnx);
             MySqlDataReader rd = cmd.ExecuteReader();
             columnsRead(lstvResultat, rd);

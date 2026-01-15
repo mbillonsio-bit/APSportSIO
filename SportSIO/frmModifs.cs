@@ -27,7 +27,7 @@ namespace SportSIO
             txtRue.Text = lstv.SelectedItems[0].SubItems[4].Text;
             txtCP.Text = lstv.SelectedItems[0].SubItems[5].Text;
             txtVille.Text = lstv.SelectedItems[0].SubItems[6].Text;
-            txtNomSport.Text = lstv.SelectedItems[0].SubItems[8].Text;
+            cbxSport.Text = lstv.SelectedItems[0].SubItems[8].Text;
             switch (lstv.SelectedItems[0].SubItems[7].Text)
             {
                 case "1":
@@ -59,14 +59,11 @@ namespace SportSIO
 
         private void btnRetour_Click(object sender, EventArgs e)
         {
-            frmSportSIO frmSportSIO = new frmSportSIO();
-            frmSportSIO.Show();
             this.Close();
         }
 
         private void btnValider_Click(object sender, EventArgs e)
         {
-            frmSportSIO frmSportSIO = new frmSportSIO();
             string nom = txtNom.Text;
             string prenom = txtPren.Text;
             DateTime dateNais = dtpDateNais.Value;
@@ -75,21 +72,19 @@ namespace SportSIO
             string cp = txtCP.Text;
             string ville = txtVille.Text;
             int nivExp = cbxNivExp.SelectedIndex + 1;
-            string nomSport = txtNomSport.Text;
+            int idSport = cbxSport.SelectedIndex + 1;
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
-            string Update = $"UPDATE Sportif SET nom='{nom}',prenom='{prenom}',dateNais='{dateNaisString}',rue={rue},codePostal='{cp}',ville='{ville}',niveauExperience={nivExp},nomSport='{nomSport}' " +
+            string Update = $"UPDATE Sportif SET nom='{nom}',prenom='{prenom}',dateNais='{dateNaisString}',rue={rue},codePostal='{cp}',ville='{ville}',niveauExperience={nivExp},idSport='{idSport}' " +
                 $"WHERE id = {id}";
             MySqlCommand cmd = new MySqlCommand(Update, cnx);
             cmd.ExecuteNonQuery();
             cnx.Close();
-            frmSportSIO.Show();
             this.Close();
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            frmSportSIO frmSportSIO = new frmSportSIO();
             List<Sportif> lesSportif = frmSportSIO.findSportifs();
             int idInsert = lesSportif.Count + 1;
             string nom = txtNom.Text;
@@ -100,15 +95,14 @@ namespace SportSIO
             string cp = txtCP.Text;
             string ville = txtVille.Text;
             int nivExp = cbxNivExp.SelectedIndex + 1;
-            string nomSport = txtNomSport.Text;
+            int idSport = cbxSport.SelectedIndex + 1;
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
             string Insert = $"INSERT INTO Sportif VALUES " +
-                $"({idInsert},'{nom}','{prenom}','{dateNaisString}',{rue},'{cp}','{ville}',{nivExp},'{nomSport}')";
+                $"({idInsert},'{nom}','{prenom}','{dateNaisString}',{rue},'{cp}','{ville}',{nivExp},'{idSport}')";
             MySqlCommand cmd = new MySqlCommand(Insert, cnx);
             cmd.ExecuteNonQuery();
             cnx.Close();
-            frmSportSIO.Show();
             this.Close();
         }
     }

@@ -38,7 +38,6 @@
             this.lblDateNais = new System.Windows.Forms.Label();
             this.lblPren = new System.Windows.Forms.Label();
             this.lblNom = new System.Windows.Forms.Label();
-            this.txtNomSport = new System.Windows.Forms.TextBox();
             this.txtVille = new System.Windows.Forms.TextBox();
             this.txtCP = new System.Windows.Forms.TextBox();
             this.txtRue = new System.Windows.Forms.TextBox();
@@ -48,11 +47,14 @@
             this.btnValider = new System.Windows.Forms.Button();
             this.btnRetour = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.cbxSport = new System.Windows.Forms.ComboBox();
             this.gbxModif.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxModif
             // 
+            this.gbxModif.Controls.Add(this.cbxSport);
             this.gbxModif.Controls.Add(this.dtpDateNais);
             this.gbxModif.Controls.Add(this.lblNomSport);
             this.gbxModif.Controls.Add(this.lblNivExp);
@@ -62,7 +64,6 @@
             this.gbxModif.Controls.Add(this.lblDateNais);
             this.gbxModif.Controls.Add(this.lblPren);
             this.gbxModif.Controls.Add(this.lblNom);
-            this.gbxModif.Controls.Add(this.txtNomSport);
             this.gbxModif.Controls.Add(this.txtVille);
             this.gbxModif.Controls.Add(this.txtCP);
             this.gbxModif.Controls.Add(this.txtRue);
@@ -155,13 +156,6 @@
             this.lblNom.TabIndex = 22;
             this.lblNom.Text = "Nom :";
             // 
-            // txtNomSport
-            // 
-            this.txtNomSport.Location = new System.Drawing.Point(77, 342);
-            this.txtNomSport.Name = "txtNomSport";
-            this.txtNomSport.Size = new System.Drawing.Size(400, 20);
-            this.txtNomSport.TabIndex = 20;
-            // 
             // txtVille
             // 
             this.txtVille.Location = new System.Drawing.Point(86, 253);
@@ -241,6 +235,19 @@
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
+            // cbxSport
+            // 
+            this.cbxSport.FormattingEnabled = true;
+            this.cbxSport.Items.AddRange(new object[] {
+            "Tennis",
+            "Natation",
+            "FootBall",
+            "Judo"});
+            this.cbxSport.Location = new System.Drawing.Point(86, 342);
+            this.cbxSport.Name = "cbxSport";
+            this.cbxSport.Size = new System.Drawing.Size(391, 21);
+            this.cbxSport.TabIndex = 31;
+            // 
             // frmModifs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,7 +269,6 @@
 
         private System.Windows.Forms.GroupBox gbxModif;
         private System.Windows.Forms.ComboBox cbxNivExp;
-        private System.Windows.Forms.TextBox txtNomSport;
         private System.Windows.Forms.TextBox txtVille;
         private System.Windows.Forms.TextBox txtCP;
         private System.Windows.Forms.TextBox txtRue;
@@ -280,5 +286,7 @@
         private System.Windows.Forms.Button btnValider;
         private System.Windows.Forms.Button btnRetour;
         private System.Windows.Forms.Button btnInsert;
+        private System.Windows.Forms.ComboBox cbxSport;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
