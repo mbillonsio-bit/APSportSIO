@@ -93,7 +93,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Participe.cs" />
     <Compile Include="Compte.cs" />
+    <Compile Include="Sport.cs" />
     <Compile Include="Sportif.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

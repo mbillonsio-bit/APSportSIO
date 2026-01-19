@@ -20,6 +20,20 @@ namespace SportSIO
     {
         public static int Modif;
 
+        public void AddSportSportif(string idSportif)
+        {
+            lstSports.Items.Clear();
+            string chConnexion = ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString;
+            MySqlConnection cnx = new MySqlConnection(chConnexion);
+            cnx.Open();
+            string req = $"SELECT Sp.nomSport FROM Participe P INNER JOIN Sport Sp ON P.idSport = {idSportif};";
+            MySqlCommand cmd = new MySqlCommand(req, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                lstSports.Items.Add(rd[0].ToString());
+            }
+        }
         public static List<Sportif> findSportifs()
         {
             List<Sportif> lesSportifs = new List<Sportif>();
@@ -31,12 +45,49 @@ namespace SportSIO
             while (rd.Read())
             {
                 Sportif sportif = new Sportif((int)rd[0], rd[1].ToString(), rd[2].ToString(), (DateTime)rd[3], rd[4].ToString(),
-                    rd[5].ToString(), rd[6].ToString(), (int)rd[7], rd[8].ToString());
+                    rd[5].ToString(), rd[6].ToString(), (int)rd[7]);
                 lesSportifs.Add(sportif);
             }
             cnx.Close();
             return lesSportifs;
         }
+
+        public static List<Participe> findParticipe()
+        {
+            List<Participe> lesParticipants = new List<Participe>();
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string Search = "SELECT * FROM Participe";
+            MySqlCommand cmd = new MySqlCommand(Search, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                Participe participe = new Participe((int)rd[0], (int)rd[1]);
+                lesParticipants.Add(participe);
+            }
+            cnx.Close();
+            return lesParticipants;
+        }
+
+
+
+        public static List<Sport> findSports()
+        {
+            List<Sport> lesSports = new List<Sport>();
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string Search = "SELECT * FROM Sport";
+            MySqlCommand cmd = new MySqlCommand(Search, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            while (rd.Read())
+            {
+                Sport sport = new Sport((int)rd[0], rd[1].ToString());
+                lesSports.Add(sport);
+            }
+            cnx.Close();
+            return lesSports;
+        }
+
         public void columnsRead(System.Windows.Forms.ListView lstv, MySqlDataReader rd)
         {
             lstv.Columns.Clear();
@@ -60,10 +111,19 @@ namespace SportSIO
             lstv.Columns[2].Width = 100;
             lstv.Columns[6].Width = 150;
             lstv.Columns[1].Width = 100;
-
-
+            List<Sportif> Sportifs = new List<Sportif>();
+            List<Participe> lesParticipants = new List<Participe>();
+            List<Sport> Sports = new List<Sport>();
             while (rd.Read())
             {
+                Sportif unSportif = new Sportif((int)rd[0], rd[1].ToString(), rd[2].ToString(), (DateTime)rd[3], rd[4].ToString(),
+                    rd[5].ToString(), rd[6].ToString(), (int)rd[7]);
+                Participe unParticipe = new Participe((int)rd[10], (int)rd[9]);
+                Sport unSport = new Sport((int)rd[9], rd[8].ToString());
+                lesParticipants.Add(unParticipe);
+                Sportifs.Add(unSportif);
+                Sports.Add(unSport);
+
                 ListViewItem lv = new ListViewItem(rd[0].ToString());
                 lv.SubItems.Add(rd[1].ToString());
                 lv.SubItems.Add(rd[2].ToString());
@@ -81,7 +141,7 @@ namespace SportSIO
         {
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString); 
             cnx.Open();
-            string Search = "SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport \nFROM Sportif S \nINNER JOIN Sport Sp ON S.idSport=Sp.id;";
+            string Search = "SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport,P.idSport,P.idSportif FROM Participe P INNER JOIN Sportif S ON S.id=P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id;";
             MySqlCommand cmd = new MySqlCommand(Search, cnx);
             MySqlDataReader rd = cmd.ExecuteReader();
             columnsRead(lstv, rd);
@@ -156,14 +216,22 @@ namespace SportSIO
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string id = lstvResultat.SelectedItems[0].SubItems[0].Text;
-            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
-            cnx.Open();
-            string Delete = $"CALL DeleteSportif({id})";
-            MySqlCommand cmd = new MySqlCommand(Delete, cnx);
-            cmd.ExecuteNonQuery();
-            cnx.Close();
-            StartListView(lstvResultat);
+            if (lstvResultat.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Veuillez sélectionner un sportif à supprimer");
+                return;
+            }
+            else
+            {
+                string id = lstvResultat.SelectedItems[0].SubItems[0].Text;
+                MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+                cnx.Open();
+                string Delete = $"CALL DeleteSportif({id})";
+                MySqlCommand cmd = new MySqlCommand(Delete, cnx);
+                cmd.ExecuteNonQuery();
+                cnx.Close();
+                StartListView(lstvResultat);
+            }
         }
 
         private void lblModifPass_Click(object sender, EventArgs e)
@@ -214,11 +282,16 @@ namespace SportSIO
             }
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
-            string Delete = $"SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport FROM Sportif S INNER JOIN Sport Sp ON S.idSport=Sp.id ORDER BY {order} asc";
+            string Delete = $"SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport,P.idSport,P.idSportif FROM Participe P INNER JOIN Sportif S ON S.id=P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id ORDER BY {order} asc";
             MySqlCommand cmd = new MySqlCommand(Delete, cnx);
             MySqlDataReader rd = cmd.ExecuteReader();
             columnsRead(lstvResultat, rd);
             cnx.Close();
+        }
+
+        private void lstvResultat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AddSportSportif(lstvResultat.SelectedItems[0].SubItems[0].Text);
         }
     }
 }

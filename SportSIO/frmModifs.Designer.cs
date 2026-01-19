@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbxModif = new System.Windows.Forms.GroupBox();
+            this.cbxSport = new System.Windows.Forms.ComboBox();
             this.dtpDateNais = new System.Windows.Forms.DateTimePicker();
             this.lblNomSport = new System.Windows.Forms.Label();
             this.lblNivExp = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@
             this.btnRetour = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.cbxSport = new System.Windows.Forms.ComboBox();
             this.gbxModif.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +76,19 @@
             this.gbxModif.TabIndex = 1;
             this.gbxModif.TabStop = false;
             this.gbxModif.Text = "Modifier";
+            // 
+            // cbxSport
+            // 
+            this.cbxSport.FormattingEnabled = true;
+            this.cbxSport.Items.AddRange(new object[] {
+            "Tennis",
+            "Natation",
+            "FootBall",
+            "Judo"});
+            this.cbxSport.Location = new System.Drawing.Point(86, 342);
+            this.cbxSport.Name = "cbxSport";
+            this.cbxSport.Size = new System.Drawing.Size(391, 21);
+            this.cbxSport.TabIndex = 31;
             // 
             // dtpDateNais
             // 
@@ -234,19 +247,6 @@
             this.btnInsert.Text = "Insérer";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
-            // 
-            // cbxSport
-            // 
-            this.cbxSport.FormattingEnabled = true;
-            this.cbxSport.Items.AddRange(new object[] {
-            "Tennis",
-            "Natation",
-            "FootBall",
-            "Judo"});
-            this.cbxSport.Location = new System.Drawing.Point(86, 342);
-            this.cbxSport.Name = "cbxSport";
-            this.cbxSport.Size = new System.Drawing.Size(391, 21);
-            this.cbxSport.TabIndex = 31;
             // 
             // frmModifs
             // 

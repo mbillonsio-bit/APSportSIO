@@ -16,21 +16,22 @@ namespace BiblioSportif
         private int id;
         private int niveauExperience;
         private string nom;
-        private string nomSport;
+        private List<Sport> lesSport;
         private string prenom;
         private string rue;
         private string ville;
-        public Sportif(int id, string nom, string prenom, DateTime dateNais, string rue, string codePostal, string ville, int niveauExperience, string nomSport)
+        public Sportif(int id, string nom, string prenom, DateTime dateNais, string rue, string codePostal, string ville, int niveauExperience)
         {
             this.codePostal = codePostal;
             this.dateNais = dateNais;
             this.id = id;
             this.niveauExperience = niveauExperience;
             this.nom = nom;
-            this.nomSport = nomSport;
             this.prenom = prenom;
             this.rue = rue;
             this.ville = ville;
+            List<Sport> sports = new List<Sport>();
+      
         }
 
         public string CodePostal { get => codePostal; set => codePostal = value; }
@@ -38,10 +39,10 @@ namespace BiblioSportif
         public int Id { get => id; set => id = value; }
         public int NiveauExperience { get => niveauExperience; set => niveauExperience = value; }
         public string Nom { get => nom; set => nom = value; }
-        public string NomSport { get => nomSport; set => nomSport = value; }
         public string Prenom { get => prenom; set => prenom = value; }
         public string Rue { get => rue; set => rue = value; }
         public string Ville { get => ville; set => ville = value; }
+        public List<Sport> LesSport { get => lesSport; set => lesSport = value; }
 
         public string GetLibelleNiveau()
         {

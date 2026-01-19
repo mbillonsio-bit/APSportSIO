@@ -37,6 +37,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.lblUser = new System.Windows.Forms.Label();
             this.lblModifPass = new System.Windows.Forms.Button();
+            this.lstSports = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label2
@@ -53,10 +54,11 @@
             this.lstvResultat.HideSelection = false;
             this.lstvResultat.Location = new System.Drawing.Point(11, 133);
             this.lstvResultat.Name = "lstvResultat";
-            this.lstvResultat.Size = new System.Drawing.Size(1144, 566);
+            this.lstvResultat.Size = new System.Drawing.Size(1144, 465);
             this.lstvResultat.TabIndex = 8;
             this.lstvResultat.UseCompatibleStateImageBehavior = false;
             this.lstvResultat.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstvResultat_ColumnClick);
+            this.lstvResultat.SelectedIndexChanged += new System.EventHandler(this.lstvResultat_SelectedIndexChanged);
             // 
             // cbxCritere
             // 
@@ -146,12 +148,21 @@
             this.lblModifPass.UseVisualStyleBackColor = true;
             this.lblModifPass.Click += new System.EventHandler(this.lblModifPass_Click);
             // 
+            // lstSports
+            // 
+            this.lstSports.FormattingEnabled = true;
+            this.lstSports.Location = new System.Drawing.Point(11, 604);
+            this.lstSports.Name = "lstSports";
+            this.lstSports.Size = new System.Drawing.Size(1144, 95);
+            this.lstSports.TabIndex = 14;
+            // 
             // frmSportSIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(1165, 711);
+            this.Controls.Add(this.lstSports);
             this.Controls.Add(this.lblModifPass);
             this.Controls.Add(this.lblUser);
             this.Controls.Add(this.btnDelete);
@@ -179,6 +190,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Button lblModifPass;
+        private System.Windows.Forms.ListBox lstSports;
     }
 }
 
