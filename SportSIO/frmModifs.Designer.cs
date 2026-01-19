@@ -49,11 +49,15 @@
             this.btnRetour = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.cbxSport2 = new System.Windows.Forms.ComboBox();
+            this.cbxSport3 = new System.Windows.Forms.ComboBox();
             this.gbxModif.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxModif
             // 
+            this.gbxModif.Controls.Add(this.cbxSport3);
+            this.gbxModif.Controls.Add(this.cbxSport2);
             this.gbxModif.Controls.Add(this.cbxSport);
             this.gbxModif.Controls.Add(this.dtpDateNais);
             this.gbxModif.Controls.Add(this.lblNomSport);
@@ -72,7 +76,7 @@
             this.gbxModif.Controls.Add(this.cbxNivExp);
             this.gbxModif.Location = new System.Drawing.Point(1, -13);
             this.gbxModif.Name = "gbxModif";
-            this.gbxModif.Size = new System.Drawing.Size(487, 374);
+            this.gbxModif.Size = new System.Drawing.Size(487, 426);
             this.gbxModif.TabIndex = 1;
             this.gbxModif.TabStop = false;
             this.gbxModif.Text = "Modifier";
@@ -80,11 +84,6 @@
             // cbxSport
             // 
             this.cbxSport.FormattingEnabled = true;
-            this.cbxSport.Items.AddRange(new object[] {
-            "Tennis",
-            "Natation",
-            "FootBall",
-            "Judo"});
             this.cbxSport.Location = new System.Drawing.Point(86, 342);
             this.cbxSport.Name = "cbxSport";
             this.cbxSport.Size = new System.Drawing.Size(391, 21);
@@ -220,7 +219,7 @@
             // 
             // btnValider
             // 
-            this.btnValider.Location = new System.Drawing.Point(1, 367);
+            this.btnValider.Location = new System.Drawing.Point(1, 419);
             this.btnValider.Name = "btnValider";
             this.btnValider.Size = new System.Drawing.Size(237, 50);
             this.btnValider.TabIndex = 3;
@@ -230,7 +229,7 @@
             // 
             // btnRetour
             // 
-            this.btnRetour.Location = new System.Drawing.Point(252, 367);
+            this.btnRetour.Location = new System.Drawing.Point(252, 419);
             this.btnRetour.Name = "btnRetour";
             this.btnRetour.Size = new System.Drawing.Size(236, 50);
             this.btnRetour.TabIndex = 4;
@@ -240,7 +239,7 @@
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(1, 367);
+            this.btnInsert.Location = new System.Drawing.Point(1, 419);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(237, 50);
             this.btnInsert.TabIndex = 5;
@@ -248,11 +247,27 @@
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
+            // cbxSport2
+            // 
+            this.cbxSport2.FormattingEnabled = true;
+            this.cbxSport2.Location = new System.Drawing.Point(86, 369);
+            this.cbxSport2.Name = "cbxSport2";
+            this.cbxSport2.Size = new System.Drawing.Size(391, 21);
+            this.cbxSport2.TabIndex = 32;
+            // 
+            // cbxSport3
+            // 
+            this.cbxSport3.FormattingEnabled = true;
+            this.cbxSport3.Location = new System.Drawing.Point(86, 396);
+            this.cbxSport3.Name = "cbxSport3";
+            this.cbxSport3.Size = new System.Drawing.Size(391, 21);
+            this.cbxSport3.TabIndex = 33;
+            // 
             // frmModifs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 421);
+            this.ClientSize = new System.Drawing.Size(490, 481);
             this.Controls.Add(this.btnInsert);
             this.Controls.Add(this.btnRetour);
             this.Controls.Add(this.btnValider);
@@ -288,5 +303,7 @@
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.ComboBox cbxSport;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ComboBox cbxSport3;
+        private System.Windows.Forms.ComboBox cbxSport2;
     }
 }

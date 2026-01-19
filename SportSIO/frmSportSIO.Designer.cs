@@ -38,6 +38,9 @@
             this.lblUser = new System.Windows.Forms.Label();
             this.lblModifPass = new System.Windows.Forms.Button();
             this.lstSports = new System.Windows.Forms.ListBox();
+            this.lstvSport = new System.Windows.Forms.ListView();
+            this.btnAddSport = new System.Windows.Forms.Button();
+            this.btnSupSport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -54,7 +57,7 @@
             this.lstvResultat.HideSelection = false;
             this.lstvResultat.Location = new System.Drawing.Point(11, 133);
             this.lstvResultat.Name = "lstvResultat";
-            this.lstvResultat.Size = new System.Drawing.Size(1144, 465);
+            this.lstvResultat.Size = new System.Drawing.Size(1007, 465);
             this.lstvResultat.TabIndex = 8;
             this.lstvResultat.UseCompatibleStateImageBehavior = false;
             this.lstvResultat.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstvResultat_ColumnClick);
@@ -76,8 +79,7 @@
             "Rue",
             "Code postal",
             "Ville",
-            "Niveau d\'expérience",
-            "Nom du sport"});
+            "Niveau d\'expérience"});
             this.cbxCritere.Location = new System.Drawing.Point(11, 54);
             this.cbxCritere.Name = "cbxCritere";
             this.cbxCritere.Size = new System.Drawing.Size(178, 31);
@@ -156,12 +158,46 @@
             this.lstSports.Size = new System.Drawing.Size(1144, 95);
             this.lstSports.TabIndex = 14;
             // 
+            // lstvSport
+            // 
+            this.lstvSport.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstvSport.HideSelection = false;
+            this.lstvSport.Location = new System.Drawing.Point(1024, 133);
+            this.lstvSport.Name = "lstvSport";
+            this.lstvSport.Size = new System.Drawing.Size(129, 353);
+            this.lstvSport.TabIndex = 15;
+            this.lstvSport.UseCompatibleStateImageBehavior = false;
+            this.lstvSport.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstvSport_ColumnClick);
+            // 
+            // btnAddSport
+            // 
+            this.btnAddSport.Location = new System.Drawing.Point(1022, 492);
+            this.btnAddSport.Name = "btnAddSport";
+            this.btnAddSport.Size = new System.Drawing.Size(131, 50);
+            this.btnAddSport.TabIndex = 16;
+            this.btnAddSport.Text = "Ajouter Sport";
+            this.btnAddSport.UseVisualStyleBackColor = true;
+            this.btnAddSport.Click += new System.EventHandler(this.btnAddSport_Click);
+            // 
+            // btnSupSport
+            // 
+            this.btnSupSport.Location = new System.Drawing.Point(1022, 548);
+            this.btnSupSport.Name = "btnSupSport";
+            this.btnSupSport.Size = new System.Drawing.Size(131, 50);
+            this.btnSupSport.TabIndex = 18;
+            this.btnSupSport.Text = "Supprimer Sport";
+            this.btnSupSport.UseVisualStyleBackColor = true;
+            this.btnSupSport.Click += new System.EventHandler(this.btnSupSport_Click);
+            // 
             // frmSportSIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(1165, 711);
+            this.Controls.Add(this.btnSupSport);
+            this.Controls.Add(this.btnAddSport);
+            this.Controls.Add(this.lstvSport);
             this.Controls.Add(this.lstSports);
             this.Controls.Add(this.lblModifPass);
             this.Controls.Add(this.lblUser);
@@ -190,7 +226,10 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Button lblModifPass;
-        private System.Windows.Forms.ListBox lstSports;
+        public System.Windows.Forms.ListBox lstSports;
+        public System.Windows.Forms.ListView lstvSport;
+        private System.Windows.Forms.Button btnAddSport;
+        private System.Windows.Forms.Button btnSupSport;
     }
 }
 

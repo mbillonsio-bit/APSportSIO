@@ -192,3 +192,4 @@ C:\Users\BILLON\source\repos\mbillonsio-bit\APSportSIO\SportSIO\bin\Debug\System
 C:\Users\BILLON\source\repos\mbillonsio-bit\APSportSIO\SportSIO\bin\Debug\ZstdSharp.dll
 C:\Users\BILLON\source\repos\mbillonsio-bit\APSportSIO\SportSIO\bin\Debug\System.Memory.xml
 C:\Users\BILLON\source\repos\mbillonsio-bit\APSportSIO\SportSIO\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\BILLON\source\repos\mbillonsio-bit\APSportSIO\SportSIO\obj\Debug\SportSIO.frmAjoutSport.resources

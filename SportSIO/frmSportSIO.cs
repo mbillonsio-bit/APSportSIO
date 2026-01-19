@@ -26,7 +26,7 @@ namespace SportSIO
             string chConnexion = ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString;
             MySqlConnection cnx = new MySqlConnection(chConnexion);
             cnx.Open();
-            string req = $"SELECT Sp.nomSport FROM Participe P INNER JOIN Sport Sp ON P.idSport = {idSportif};";
+            string req = $"SELECT Sp.nomSport FROM Participe P INNER JOIN Sport Sp ON P.idSport = Sp.id WHERE P.idSportif = {idSportif};";
             MySqlCommand cmd = new MySqlCommand(req, cnx);
             MySqlDataReader rd = cmd.ExecuteReader();
             while (rd.Read())
@@ -101,29 +101,16 @@ namespace SportSIO
             lstv.Columns.Add("Code postal");
             lstv.Columns.Add("Ville");
             lstv.Columns.Add("Niveau d'experience");
-            lstv.Columns.Add("Nom du sport");
             lstv.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize);
             lstv.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.HeaderSize);
             lstv.AutoResizeColumn(5, ColumnHeaderAutoResizeStyle.HeaderSize);
-            lstv.AutoResizeColumn(7, ColumnHeaderAutoResizeStyle.HeaderSize);
-            lstv.Columns[8].Width = 138;
             lstv.Columns[4].Width = 200;
             lstv.Columns[2].Width = 100;
             lstv.Columns[6].Width = 150;
             lstv.Columns[1].Width = 100;
-            List<Sportif> Sportifs = new List<Sportif>();
-            List<Participe> lesParticipants = new List<Participe>();
-            List<Sport> Sports = new List<Sport>();
+            lstv.Columns[7].Width = 156;
             while (rd.Read())
             {
-                Sportif unSportif = new Sportif((int)rd[0], rd[1].ToString(), rd[2].ToString(), (DateTime)rd[3], rd[4].ToString(),
-                    rd[5].ToString(), rd[6].ToString(), (int)rd[7]);
-                Participe unParticipe = new Participe((int)rd[10], (int)rd[9]);
-                Sport unSport = new Sport((int)rd[9], rd[8].ToString());
-                lesParticipants.Add(unParticipe);
-                Sportifs.Add(unSportif);
-                Sports.Add(unSport);
-
                 ListViewItem lv = new ListViewItem(rd[0].ToString());
                 lv.SubItems.Add(rd[1].ToString());
                 lv.SubItems.Add(rd[2].ToString());
@@ -132,7 +119,6 @@ namespace SportSIO
                 lv.SubItems.Add(rd[5].ToString());
                 lv.SubItems.Add(rd[6].ToString());
                 lv.SubItems.Add(rd[7].ToString());
-                lv.SubItems.Add(rd[8].ToString());
                 lstv.Items.Add(lv);
             }
             lstv.FullRowSelect = true;
@@ -141,26 +127,53 @@ namespace SportSIO
         {
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString); 
             cnx.Open();
-            string Search = "SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport,P.idSport,P.idSportif FROM Participe P INNER JOIN Sportif S ON S.id=P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id;";
+            string Search = "SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport,P.idSport,P.idSportif FROM Sportif S INNER JOIN Participe P ON S.id=P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id GROUP BY P.idSportif;";
             MySqlCommand cmd = new MySqlCommand(Search, cnx);
             MySqlDataReader rd = cmd.ExecuteReader();
             columnsRead(lstv, rd);
-
             cnx.Close();
+        }
+        public void StartListViewSport(System.Windows.Forms.ListView lstv)
+        {
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string Search = "SELECT * FROM Sport;";
+            MySqlCommand cmd = new MySqlCommand(Search, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            columnsReadSport(lstv, rd);
+            cnx.Close();
+        }
+
+
+        public void columnsReadSport(System.Windows.Forms.ListView lstv, MySqlDataReader rd)
+        {
+            lstv.Columns.Clear();
+            lstv.Items.Clear();
+            lstv.View = View.Details;
+            lstv.Columns.Add("Id");
+            lstv.Columns.Add("Nom Sport");
+            lstv.Columns[0].Width = 29;
+            lstv.Columns[1].Width =96;
+            while (rd.Read())
+            {
+                ListViewItem lv = new ListViewItem(rd[0].ToString());
+                lv.SubItems.Add(rd[1].ToString());
+                lstv.Items.Add(lv);
+            }
+            lstv.FullRowSelect = true;
         }
         public void SearchListView(System.Windows.Forms.ListView lstv)
         {    
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             MySqlDataReader rd = Sportif.GetSportif(txtRecherche.Text, cbxCritere.SelectedIndex);
             columnsRead(lstv, rd);
-
-
             cnx.Close();
         }
         public frmSportSIO()
         {
             InitializeComponent();
             StartListView(lstvResultat);
+            StartListViewSport(lstvSport);
             lblUser.Text = "Utilisateur : " + frmLogin.cpte.Username;
         }
 
@@ -198,7 +211,7 @@ namespace SportSIO
             }
             else 
             {
-                frmModifs modif = new frmModifs(lstvResultat);
+                frmModifs modif = new frmModifs(lstvResultat, lstSports);
                 this.Hide();
                 modif.ShowDialog();
                 this.Show();
@@ -245,6 +258,7 @@ namespace SportSIO
         private void frmSportSIO_VisibleChanged(object sender, EventArgs e)
         {
             StartListView(lstvResultat);
+            StartListViewSport(lstvSport);
         }
 
         private void lstvResultat_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -253,37 +267,34 @@ namespace SportSIO
             switch (lstvResultat.Columns[e.Column].Index)
             {
                 case 0:
-                    order = "id";
+                    order = "S.id";
                     break;
                 case 1:
-                    order = "nom";
+                    order = "S.nom";
                     break;
                 case 2:
-                    order = "prenom";
+                    order = "S.prenom";
                     break;
                 case 3:
-                    order = "dateNais";
+                    order = "S.dateNais";
                     break;
                 case 4:
-                    order = "rue";
+                    order = "S.rue";
                     break;
                 case 5:
-                    order = "codePostal";
+                    order = "S.codePostal";
                     break;
                 case 6:
-                    order = "ville";
+                    order = "S.ville";
                     break;
                 case 7:
-                    order = "niveauExperience";
-                    break;
-                case 8:
-                    order = "idSport";
+                    order = "S.niveauExperience";
                     break;
             }
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
-            string Delete = $"SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport,P.idSport,P.idSportif FROM Participe P INNER JOIN Sportif S ON S.id=P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id ORDER BY {order} asc";
-            MySqlCommand cmd = new MySqlCommand(Delete, cnx);
+            string orderby = $"SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport,P.idSport,P.idSportif FROM Sportif S INNER JOIN Participe P ON S.id=P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id GROUP BY P.idSportif ORDER BY {order} asc";
+            MySqlCommand cmd = new MySqlCommand(orderby, cnx);
             MySqlDataReader rd = cmd.ExecuteReader();
             columnsRead(lstvResultat, rd);
             cnx.Close();
@@ -291,7 +302,59 @@ namespace SportSIO
 
         private void lstvResultat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AddSportSportif(lstvResultat.SelectedItems[0].SubItems[0].Text);
+            if (lstvResultat.SelectedItems.Count != 0)
+            {
+                AddSportSportif(lstvResultat.SelectedItems[0].SubItems[0].Text);
+            }
+        }
+
+        private void btnAddSport_Click(object sender, EventArgs e)
+        {
+            frmAjoutSport modifSport = new frmAjoutSport();
+            this.Hide();
+            modifSport.ShowDialog();
+            this.Show();
+        }
+
+        private void btnSupSport_Click(object sender, EventArgs e)
+        {
+            if (lstvSport.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Veuillez sélectionner un sportif à supprimer");
+                return;
+            }
+            else
+            {
+                string id = lstvSport.SelectedItems[0].SubItems[0].Text;
+                MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+                cnx.Open();
+                string Delete = $"CALL DeleteSport({id})";
+                MySqlCommand cmd = new MySqlCommand(Delete, cnx);
+                cmd.ExecuteNonQuery();
+                cnx.Close();
+                StartListViewSport(lstvSport);
+            }
+        }
+
+        private void lstvSport_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            string order = "id";
+            switch (lstvSport.Columns[e.Column].Index)
+            {
+                case 0:
+                    order = "id";
+                    break;
+                case 1:
+                    order = "nomSport";
+                    break;
+            }
+            MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
+            cnx.Open();
+            string orderby = $"SELECT * FROM Sport ORDER BY {order} asc";
+            MySqlCommand cmd = new MySqlCommand(orderby, cnx);
+            MySqlDataReader rd = cmd.ExecuteReader();
+            columnsReadSport(lstvSport, rd);
+            cnx.Close();
         }
     }
 }

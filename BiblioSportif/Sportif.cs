@@ -99,10 +99,6 @@ namespace BiblioSportif
                     searchValue = $"{valeur}";
                     searchCriteria = "niveauExperience";
                     break;
-                case 8:
-                    searchValue = $"'%{valeur}%'";
-                    searchCriteria = "nomSport";
-                    break;
                 default:
                     searchValue = $"{valeur}";
                     searchCriteria = "id";
