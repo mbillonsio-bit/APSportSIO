@@ -79,7 +79,8 @@
             "Rue",
             "Code postal",
             "Ville",
-            "Niveau d\'expérience"});
+            "Niveau d\'expérience",
+            "Nom du sport"});
             this.cbxCritere.Location = new System.Drawing.Point(11, 54);
             this.cbxCritere.Name = "cbxCritere";
             this.cbxCritere.Size = new System.Drawing.Size(178, 31);

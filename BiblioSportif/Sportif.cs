@@ -69,45 +69,49 @@ namespace BiblioSportif
             {
                 case 0:
                     searchValue = $"{valeur}";
-                    searchCriteria = "id";
+                    searchCriteria = "S.id";
                     break;
                 case 1:
                     searchValue = $"'%{valeur}%'";
-                    searchCriteria = "nom";
+                    searchCriteria = "S.nom";
                     break;
                 case 2:
                     searchValue = $"'%{valeur}%'";
-                    searchCriteria = "prenom";
+                    searchCriteria = "S.prenom";
                     break;
                 case 3:
                     searchValue = $"'%{valeur}%'";
-                    searchCriteria = "dateNais";
+                    searchCriteria = "S.dateNais";
                     break;
                 case 4:
                     searchValue = $"'%{valeur}%'";
-                    searchCriteria = "rue";
+                    searchCriteria = "S.rue";
                     break;
                 case 5:
                     searchValue = $"'%{valeur}%'";
-                    searchCriteria = "codePostal";
+                    searchCriteria = "S.codePostal";
                     break;
                 case 6:
                     searchValue = $"'%{valeur}%'";
-                    searchCriteria = "ville";
+                    searchCriteria = "S.ville";
                     break;
                 case 7:
                     searchValue = $"{valeur}";
-                    searchCriteria = "niveauExperience";
+                    searchCriteria = "S.niveauExperience";
+                    break;
+                case 8:
+                    searchValue = $"'%{valeur}%'";
+                    searchCriteria = "Sp.nomSport";
                     break;
                 default:
                     searchValue = $"{valeur}";
-                    searchCriteria = "id";
+                    searchCriteria = "S.id";
                     break;
             }
             MySqlConnection cnx = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnxbdSport"].ConnectionString);
             cnx.Open();
 
-            string Search = $"SELECT * FROM Sportif WHERE {searchCriteria} LIKE {searchValue}";
+            string Search = $"SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport FROM Sportif S INNER JOIN Participe P ON S.id = P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id WHERE {searchCriteria} LIKE {searchValue} GROUP BY P.idSportif";
             MySqlCommand cmd = new MySqlCommand(Search, cnx);
             return cmd.ExecuteReader();
         }
