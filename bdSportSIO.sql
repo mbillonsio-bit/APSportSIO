@@ -69,7 +69,7 @@ INSERT INTO Sportif (nom,prenom,dateNais,rue,codePostal,ville,niveauExperience) 
  (11,2);
 
 
-INSERT INTO Utilisateur VALUES ('Maxev3','123');
+INSERT INTO Utilisateur VALUES ('test','test');
 SELECT S.id,S.nom,S.prenom,S.dateNais,S.rue,S.codePostal,S.ville,S.niveauExperience,Sp.nomSport FROM Participe P INNER JOIN Sportif S ON S.id=P.idSportif INNER JOIN Sport Sp ON P.idSport = Sp.id;
 DELIMITER $
 CREATE PROCEDURE DeleteSportif(IN idSportif2 int)
