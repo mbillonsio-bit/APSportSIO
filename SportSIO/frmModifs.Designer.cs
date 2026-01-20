@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbxModif = new System.Windows.Forms.GroupBox();
+            this.cbxSport3 = new System.Windows.Forms.ComboBox();
+            this.cbxSport2 = new System.Windows.Forms.ComboBox();
             this.cbxSport = new System.Windows.Forms.ComboBox();
             this.dtpDateNais = new System.Windows.Forms.DateTimePicker();
             this.lblNomSport = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@
             this.btnRetour = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.cbxSport2 = new System.Windows.Forms.ComboBox();
-            this.cbxSport3 = new System.Windows.Forms.ComboBox();
             this.gbxModif.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,8 +81,27 @@
             this.gbxModif.TabStop = false;
             this.gbxModif.Text = "Modifier";
             // 
+            // cbxSport3
+            // 
+            this.cbxSport3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxSport3.FormattingEnabled = true;
+            this.cbxSport3.Location = new System.Drawing.Point(86, 396);
+            this.cbxSport3.Name = "cbxSport3";
+            this.cbxSport3.Size = new System.Drawing.Size(391, 21);
+            this.cbxSport3.TabIndex = 33;
+            // 
+            // cbxSport2
+            // 
+            this.cbxSport2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxSport2.FormattingEnabled = true;
+            this.cbxSport2.Location = new System.Drawing.Point(86, 369);
+            this.cbxSport2.Name = "cbxSport2";
+            this.cbxSport2.Size = new System.Drawing.Size(391, 21);
+            this.cbxSport2.TabIndex = 32;
+            // 
             // cbxSport
             // 
+            this.cbxSport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSport.FormattingEnabled = true;
             this.cbxSport.Location = new System.Drawing.Point(86, 342);
             this.cbxSport.Name = "cbxSport";
@@ -205,6 +224,7 @@
             // 
             // cbxNivExp
             // 
+            this.cbxNivExp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxNivExp.FormattingEnabled = true;
             this.cbxNivExp.Items.AddRange(new object[] {
             "Débutant",
@@ -215,7 +235,6 @@
             this.cbxNivExp.Name = "cbxNivExp";
             this.cbxNivExp.Size = new System.Drawing.Size(347, 21);
             this.cbxNivExp.TabIndex = 4;
-            this.cbxNivExp.Text = "Débutant";
             // 
             // btnValider
             // 
@@ -247,26 +266,11 @@
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
-            // cbxSport2
-            // 
-            this.cbxSport2.FormattingEnabled = true;
-            this.cbxSport2.Location = new System.Drawing.Point(86, 369);
-            this.cbxSport2.Name = "cbxSport2";
-            this.cbxSport2.Size = new System.Drawing.Size(391, 21);
-            this.cbxSport2.TabIndex = 32;
-            // 
-            // cbxSport3
-            // 
-            this.cbxSport3.FormattingEnabled = true;
-            this.cbxSport3.Location = new System.Drawing.Point(86, 396);
-            this.cbxSport3.Name = "cbxSport3";
-            this.cbxSport3.Size = new System.Drawing.Size(391, 21);
-            this.cbxSport3.TabIndex = 33;
-            // 
             // frmModifs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(490, 481);
             this.Controls.Add(this.btnInsert);
             this.Controls.Add(this.btnRetour);
